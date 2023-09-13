@@ -1,0 +1,32 @@
+{
+    "name": "ucraft-com/notification-channels",
+    "description": "Package for sms and push notifications channels with Kafka topics support",
+    "type": "library",
+    "require": {
+        "php": ">=8.0",
+        "ucraft-com/kafka-producer": "^1.0.8"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Uc\\NotificationChannels\\NotificationChannelsServiceProvider"
+            ]
+        }
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Uc\\NotificationChannels\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Taron Antonyan",
+            "email": "taron@ucraft.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

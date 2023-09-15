@@ -16,9 +16,9 @@ abstract class KafkaAwareChannel
     protected string $topicName;
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected string $senderName;
+    protected ?string $senderName;
 
     /**
      * Get a notification type

@@ -40,9 +40,9 @@ class KafkaAwareSMSChannel extends KafkaAwareChannel
         }
 
         $body = [
-            'from' => $this->senderName,
+            'from'       => $this->senderName,
             'recipients' => [$phone],
-            'body' => $content,
+            'body'       => $content,
         ];
 
         $this->dispatchMessage($body);

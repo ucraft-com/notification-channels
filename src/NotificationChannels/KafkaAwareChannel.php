@@ -41,15 +41,17 @@ abstract class KafkaAwareChannel
     /**
      * Send the message to kafka.
      *
-     * @param array $payload
+     * @param array $request
      *
      * @return void
      */
-    protected function dispatchMessage(array $payload): void
+    protected function dispatchMessage(array $request): void
     {
         $body = [
-            'type'    => $this->getType(),
-            'payload' => $payload,
+            [
+                'type'    => $this->getType(),
+                'request' => $request,
+            ],
         ];
 
         $message = $this->builder

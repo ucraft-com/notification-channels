@@ -7,7 +7,7 @@ interface CanReceivePushNotificationInterface extends CanReceiveNotificationsInt
     /**
      * Get id attribute for push notification.
      *
-     * @return string
+     * @return int
      */
-    public function getPushIdentifierAttribute(): string;
+    public function getPushIdentifierAttribute(): int;
 }

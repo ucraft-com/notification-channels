@@ -5,10 +5,10 @@
     "require": {
         "php": ">=8.0",
         "ucraft-com/kafka-producer": "^1.1.1",
-        "illuminate/events": "^9.0",
-        "illuminate/notifications": "^9.0",
-        "illuminate/support": "^9.0",
-        "illuminate/contracts": "^9.0",
+        "illuminate/events": ">=9.0",
+        "illuminate/notifications": ">=9.0",
+        "illuminate/support": ">=9.0",
+        "illuminate/contracts": ">=9.0",
         "symfony/mailer": "6.2.x-dev"
     },
     "require-dev": {

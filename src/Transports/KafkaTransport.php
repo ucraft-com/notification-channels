@@ -82,8 +82,8 @@ class KafkaTransport extends AbstractTransport
         return [
             'type'    => 'mail',
             'request' => [
-                'from'       => $from['address'],
-                'fromName'   => $from['name'] ?? '',
+                'from'       => $from->getAddress(),
+                'fromName'   => $from->getName(),
                 'recipients' => array_map(function (Address $address) {
                     return $address->getAddress();
                 }, $email->getTo()),

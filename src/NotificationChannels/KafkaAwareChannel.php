@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Uc\NotificationChannels\NotificationChannels;
 
 use Illuminate\Events\Dispatcher;

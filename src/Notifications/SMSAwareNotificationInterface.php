@@ -12,7 +12,7 @@ interface SMSAwareNotificationInterface
     /**
      * @param \Uc\NotificationChannels\Models\CanReceiveSMSNotificationInterface|\Illuminate\Notifications\AnonymousNotifiable $notifiable
      *
-     * @return string
+     * @return array
      */
-    public function toSMS(CanReceiveSMSNotificationInterface|AnonymousNotifiable $notifiable): string;
+    public function toSMS(CanReceiveSMSNotificationInterface|AnonymousNotifiable $notifiable): array;
 }

@@ -6,9 +6,11 @@ namespace Uc\NotificationChannels;
 
 use Illuminate\Events\Dispatcher;
 use Illuminate\Notifications\ChannelManager;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\ServiceProvider;
 use Uc\KafkaProducer\MessageBuilder;
+use Uc\NotificationChannels\Transports\KafkaTransport;
 use Uc\NotificationChannels\NotificationChannels\KafkaAwarePushChannel;
 use Uc\NotificationChannels\NotificationChannels\KafkaAwareSMSChannel;
 
@@ -38,6 +40,11 @@ class NotificationChannelsServiceProvider extends ServiceProvider
                 'notification-channels-config'
             );
         }
+
+        // Register mail transport
+        Mail::extend('kafka-mailer', function ($config) {
+            return $this->app->make(KafkaTransport::class, ['topic' => $config['topic']]);
+        });
 
         // Register sms notification channel
         Notification::resolved(function (ChannelManager $service): void {

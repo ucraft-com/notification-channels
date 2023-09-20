@@ -18,11 +18,6 @@ abstract class KafkaAwareChannel
     protected string $topicName;
 
     /**
-     * @var string|null
-     */
-    protected ?string $senderName;
-
-    /**
      * Get a notification type
      *
      * @return string
@@ -37,17 +32,18 @@ abstract class KafkaAwareChannel
         protected MessageBuilder $builder,
         protected Dispatcher $dispatcher,
     ) {
-        $this->topicName = config('notification-channels.topic_name');
+        $this->topicName = config('notification-channels.topic');
     }
 
     /**
      * Send the message to kafka.
      *
-     * @param array $request
+     * @param array  $request
+     * @param string $from
      *
      * @return void
      */
-    protected function dispatchMessage(array $request): void
+    protected function dispatchMessage(array $request, string $from): void
     {
         $body = [
             [
@@ -58,7 +54,7 @@ abstract class KafkaAwareChannel
 
         $message = $this->builder
             ->setTopicName($this->topicName)
-            ->setKey($this->senderName)
+            ->setKey($from)
             ->setBody($body)
             ->getMessage();
 

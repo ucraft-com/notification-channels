@@ -1,10 +1,15 @@
 {
     "name": "ucraft-com/notification-channels",
-    "description": "Package for sms and push notifications channels with Kafka topics support",
+    "description": "Package for mail, sms and push notification channels with Kafka topics support",
     "type": "library",
     "require": {
         "php": ">=8.0",
-        "ucraft-com/kafka-producer": "^1.0.8"
+        "ucraft-com/kafka-producer": "^1.0.8",
+        "illuminate/events": "^9.0",
+        "illuminate/notifications": "^9.0",
+        "illuminate/support": "^9.0",
+        "illuminate/contracts": "^9.0",
+        "symfony/mailer": "6.2.x-dev"
     },
     "require-dev": {
         "orchestra/testbench": "^7.0"
@@ -16,6 +21,12 @@
             ]
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:ucraft-com/kafka-producer.git"
+        }
+    ],
     "license": "MIT",
     "autoload": {
         "psr-4": {

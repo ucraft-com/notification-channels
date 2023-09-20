@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "568dc6933b6360a6e6c7e440664f6160",
+    "content-hash": "81c4e03a1a03535017d686891bb21fe4",
     "packages": [
         {
             "name": "brick/math",
@@ -4853,23 +4853,22 @@
         },
         {
             "name": "ucraft-com/kafka-producer",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ucraft-com/kafka-producer.git",
-                "reference": "8f26b5d70bb6a485d290545dbd103c4aac6a6c1a"
+                "reference": "e20f28363de9b1674a8b52e62b1b178f6ba47140"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ucraft-com/kafka-producer/zipball/8f26b5d70bb6a485d290545dbd103c4aac6a6c1a",
-                "reference": "8f26b5d70bb6a485d290545dbd103c4aac6a6c1a",
+                "url": "https://api.github.com/repos/ucraft-com/kafka-producer/zipball/e20f28363de9b1674a8b52e62b1b178f6ba47140",
+                "reference": "e20f28363de9b1674a8b52e62b1b178f6ba47140",
                 "shasum": ""
             },
             "require": {
                 "ext-pcntl": "*",
                 "ext-rdkafka": "*",
                 "php": ">=8.0",
-                "symfony/mailer": "6.2.x-dev",
                 "symfony/property-access": "6.2.x-dev",
                 "symfony/serializer": "6.2.x-dev"
             },
@@ -4891,7 +4890,11 @@
                     "Uc\\KafkaProducer\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Uc\\KafkaProducer\\Tests\\": "tests/"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -4903,10 +4906,10 @@
             ],
             "description": "Package for producing messages into Kafka topics.",
             "support": {
-                "issues": "https://github.com/ucraft-com/kafka-producer/issues",
-                "source": "https://github.com/ucraft-com/kafka-producer/tree/1.1.0"
+                "source": "https://github.com/ucraft-com/kafka-producer/tree/1.1.1",
+                "issues": "https://github.com/ucraft-com/kafka-producer/issues"
             },
-            "time": "2022-07-31T17:23:30+00:00"
+            "time": "2023-09-20T15:50:40+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -5711,12 +5714,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/canvas.git",
-                "reference": "7979c6c4bb0ccf383b2256aa6da6aca70ba38808"
+                "reference": "30ee96760fd10e4e0aea84f08910176c152f6b84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/canvas/zipball/7979c6c4bb0ccf383b2256aa6da6aca70ba38808",
-                "reference": "7979c6c4bb0ccf383b2256aa6da6aca70ba38808",
+                "url": "https://api.github.com/repos/orchestral/canvas/zipball/30ee96760fd10e4e0aea84f08910176c152f6b84",
+                "reference": "30ee96760fd10e4e0aea84f08910176c152f6b84",
                 "shasum": ""
             },
             "require": {
@@ -5773,7 +5776,7 @@
                 "issues": "https://github.com/orchestral/canvas/issues",
                 "source": "https://github.com/orchestral/canvas/tree/7.x"
             },
-            "time": "2023-09-20T04:05:27+00:00"
+            "time": "2023-09-20T14:43:36+00:00"
         },
         {
             "name": "orchestra/canvas-core",
@@ -8603,7 +8606,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "symfony/mailer": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

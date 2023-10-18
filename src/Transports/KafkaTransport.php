@@ -16,6 +16,8 @@ use Uc\KafkaProducer\Events\ProduceMessageEvent;
 use Uc\KafkaProducer\MessageBuilder;
 
 use function array_map;
+use function is_string;
+use function trim;
 
 /**
  * Mailer transport implementation that works with messenger component.
@@ -42,11 +44,11 @@ class KafkaTransport extends AbstractTransport
     protected string $topic;
 
     public function __construct(
-        Dispatcher $laravelEventDispatcher,
-        MessageBuilder $builder,
-        string $topic,
+        Dispatcher               $laravelEventDispatcher,
+        MessageBuilder           $builder,
+        string                   $topic,
         EventDispatcherInterface $dispatcher = null,
-        LoggerInterface $logger = null
+        LoggerInterface          $logger = null
     ) {
         parent::__construct($dispatcher, $logger);
 
@@ -59,6 +61,11 @@ class KafkaTransport extends AbstractTransport
     {
         $email = MessageConverter::toEmail($message->getOriginalMessage());
         $body = $this->prepareMessageBody($email);
+
+        if (!$body) {
+            return;
+        }
+
         $kafkaMessage = $this->builder
             ->setTopicName($this->topic)
             ->setKey($body['request']['from'])
@@ -77,6 +84,16 @@ class KafkaTransport extends AbstractTransport
      */
     protected function prepareMessageBody(Email $email): array
     {
+        $subject = $email->getSubject();
+        $subject = is_string($subject) ? trim($subject) : $subject;
+
+        $html = $email->getHtmlBody();
+        $html = is_string($html) ? trim($html) : $html;
+
+        if (!$subject || !$html) {
+            return [];
+        }
+
         $from = $email->getFrom()[0];
 
         return [
@@ -87,8 +104,8 @@ class KafkaTransport extends AbstractTransport
                 'recipients' => array_map(function (Address $address) {
                     return $address->getAddress();
                 }, $email->getTo()),
-                'subject'    => $email->getSubject(),
-                'html'       => $email->getHtmlBody(),
+                'subject'    => $subject,
+                'html'       => $html,
             ],
         ];
     }

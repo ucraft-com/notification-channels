@@ -17,9 +17,13 @@ class KafkaAwarePushChannel extends KafkaAwareChannel
      */
     public function send(
         CanReceivePushNotificationInterface $notifiable,
-        PushAwareNotificationInterface $notification
+        PushAwareNotificationInterface      $notification
     ): void {
         $body = $notification->toPush($notifiable);
+
+        if (!$body) {
+            return;
+        }
 
         $from = $body['from'];
 

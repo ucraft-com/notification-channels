@@ -18,9 +18,13 @@ class KafkaAwareSMSChannel extends KafkaAwareChannel
      */
     public function send(
         CanReceiveSMSNotificationInterface|AnonymousNotifiable $notifiable,
-        SMSAwareNotificationInterface $notification
+        SMSAwareNotificationInterface                          $notification
     ): void {
         $content = $notification->toSMS($notifiable);
+
+        if (!$content) {
+            return;
+        }
 
         $from = $content['from'];
 

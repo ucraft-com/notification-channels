@@ -16,8 +16,8 @@ use Uc\KafkaProducer\Events\ProduceMessageEvent;
 use Uc\KafkaProducer\MessageBuilder;
 
 use function array_map;
+use function filter_var;
 use function is_string;
-use function str_starts_with;
 use function trim;
 
 /**

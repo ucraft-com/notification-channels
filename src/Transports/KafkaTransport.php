@@ -94,32 +94,27 @@ class KafkaTransport extends AbstractTransport
             return [];
         }
 
-        $from = $email->getFrom()[0];
+        $attachments = [];
 
-        $mail = [
-            'type'    => 'mail',
-            'request' => [
-                'from'       => $from->getAddress(),
-                'fromName'   => $from->getName(),
-                'recipients' => array_map(function (Address $address) {
-                    return $address->getAddress();
-                }, $email->getTo()),
-                'subject'    => $subject,
-                'html'       => $html,
-            ],
-        ];
-
-        $attachments = $email->getAttachments();
-
-        if ($attachments) {
-            $mail['attachments'] = [];
-
-            foreach ($attachments as $attachment) {
-                $mail['attachments'][] = ['href' => $attachment->getName()];
-            }
+        foreach ($email->getAttachments() as $attachment) {
+            $attachments[] = ['href' => $attachment->getName()];
         }
 
-        return $mail;
+        $from = $email->getFrom()[0];
+
+        return [
+            'type'    => 'mail',
+            'request' => [
+                'from'        => $from->getAddress(),
+                'fromName'    => $from->getName(),
+                'recipients'  => array_map(function (Address $address) {
+                    return $address->getAddress();
+                }, $email->getTo()),
+                'subject'     => $subject,
+                'attachments' => $attachments,
+                'html'        => $html,
+            ],
+        ];
     }
 
     /**

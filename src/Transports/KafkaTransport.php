@@ -100,7 +100,7 @@ class KafkaTransport extends AbstractTransport
         foreach ($email->getAttachments() as $attachment) {
             $name = $attachment->getName();
 
-            $key = str_starts_with($name, 'http') ? 'href' : 'path';
+            $key = filter_var($name, FILTER_VALIDATE_URL) ? 'href' : 'path';
 
             $attachments[] = [$key => $name];
         }

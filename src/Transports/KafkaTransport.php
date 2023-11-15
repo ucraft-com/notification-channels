@@ -16,6 +16,7 @@ use Uc\KafkaProducer\Events\ProduceMessageEvent;
 use Uc\KafkaProducer\MessageBuilder;
 
 use function array_map;
+use function filter_var;
 use function is_string;
 use function trim;
 
@@ -97,7 +98,11 @@ class KafkaTransport extends AbstractTransport
         $attachments = [];
 
         foreach ($email->getAttachments() as $attachment) {
-            $attachments[] = ['href' => $attachment->getName()];
+            $name = $attachment->getName();
+
+            $key = filter_var($name, FILTER_VALIDATE_URL) ? 'href' : 'path';
+
+            $attachments[] = [$key => $name];
         }
 
         $from = $email->getFrom()[0];

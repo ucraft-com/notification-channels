@@ -96,7 +96,7 @@ class KafkaTransport extends AbstractTransport
 
         $from = $email->getFrom()[0];
 
-        return [
+        $mail = [
             'type'    => 'mail',
             'request' => [
                 'from'       => $from->getAddress(),
@@ -108,6 +108,18 @@ class KafkaTransport extends AbstractTransport
                 'html'       => $html,
             ],
         ];
+
+        $attachments = $email->getAttachments();
+
+        if ($attachments) {
+            $mail['attachments'] = [];
+
+            foreach ($attachments as $attachment) {
+                $mail['attachments'][] = ['href' => $attachment->getName()];
+            }
+        }
+
+        return $mail;
     }
 
     /**

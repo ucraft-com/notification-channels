@@ -18,6 +18,8 @@ use Uc\KafkaProducer\MessageBuilder;
 use function array_map;
 use function filter_var;
 use function is_string;
+use function str_starts_with;
+use function strtolower;
 use function trim;
 
 /**
@@ -105,6 +107,16 @@ class KafkaTransport extends AbstractTransport
             $attachments[] = [$key => $name];
         }
 
+        $headers = [];
+
+        foreach ($email->getHeaders()->all() as $header) {
+            $name = $header->getName();
+
+            if (str_starts_with(strtolower($name), 'x-')) {
+                $headers[$name] = $header->getBody();
+            }
+        }
+
         $from = $email->getFrom()[0];
 
         return [
@@ -117,6 +129,7 @@ class KafkaTransport extends AbstractTransport
                 }, $email->getTo()),
                 'subject'     => $subject,
                 'attachments' => $attachments,
+                'headers'     => $headers,
                 'html'        => $html,
             ],
         ];

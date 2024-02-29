@@ -119,7 +119,7 @@ class KafkaTransport extends AbstractTransport
 
         $from = $email->getFrom()[0];
 
-        return [
+        $data = [
             'type'    => 'mail',
             'request' => [
                 'from'        => $from->getAddress(),
@@ -133,6 +133,12 @@ class KafkaTransport extends AbstractTransport
                 'html'        => $html,
             ],
         ];
+
+        if (!empty($email->hooks)) {
+            $data['hooks'] = $email->hooks;
+        }
+
+        return $data;
     }
 
     /**

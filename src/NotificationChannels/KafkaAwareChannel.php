@@ -38,24 +38,27 @@ abstract class KafkaAwareChannel
     /**
      * Send the message to kafka.
      *
-     * @param array  $request
-     * @param string $from
+     * @param array      $request
+     * @param string     $from
+     * @param array|null $hooks
      *
      * @return void
      */
-    protected function dispatchMessage(array $request, string $from): void
+    protected function dispatchMessage(array $request, string $from, ?array $hooks): void
     {
         $body = [
-            [
-                'type'    => $this->getType(),
-                'request' => $request,
-            ],
+            'type'    => $this->getType(),
+            'request' => $request,
         ];
+
+        if ($hooks) {
+            $body['hooks'] = $hooks;
+        }
 
         $message = $this->builder
             ->setTopicName($this->topicName)
             ->setKey($from)
-            ->setBody($body)
+            ->setBody([$body])
             ->getMessage();
 
         $this->dispatcher->dispatch(new ProduceMessageEvent($message));

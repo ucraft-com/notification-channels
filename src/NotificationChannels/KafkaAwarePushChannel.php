@@ -29,7 +29,11 @@ class KafkaAwarePushChannel extends KafkaAwareChannel
 
         unset($body['from']);
 
-        $this->dispatchMessage($body, $from);
+        $hooks = $body['hooks'] ?? null;
+
+        unset($body['hooks']);
+
+        $this->dispatchMessage($body, $from, $hooks);
     }
 
     /**

@@ -26,13 +26,13 @@ class KafkaAwareSMSChannel extends KafkaAwareChannel
             return;
         }
 
-        $from = $content['from'];
-
-        unset($content['from']);
-
         $hooks = $content['hooks'] ?? null;
 
         unset($content['hooks']);
+
+        $credentials = $content['credentials'] ?? null;
+
+        unset($content['credentials']);
 
         if ($notifiable instanceof AnonymousNotifiable) {
             $phone = $notifiable->routeNotificationFor('sms');
@@ -45,7 +45,11 @@ class KafkaAwareSMSChannel extends KafkaAwareChannel
             'body'       => $content['body'],
         ];
 
-        $this->dispatchMessage($body, $from, $hooks);
+        if ($credentials) {
+            $body['credentials'] = $credentials;
+        }
+
+        $this->dispatchMessage($body, $phone, $hooks);
     }
 
     /**
